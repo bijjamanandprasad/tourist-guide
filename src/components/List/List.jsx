@@ -11,14 +11,12 @@ import {
 import useStyles from "./styles.js";
 import PlaceDetails from "../PlaceDetails/PlaceDetails.jsx";
 
-const List = ({places, childClicked, isLoading}) => {
+const List = ({places, childClicked, isLoading, rating, setRating, type, setType}) => {
     const classes = useStyles();
-    const [type, setType] = useState('restaurants');
-    const [rating, setRating] = useState('');
     const [elRefs, setElRefs] = useState([]);
 
     useEffect(() => {
-        setElRefs((refs) => Array(places.length).fill().map((_, i) => refs[i] || createRef()));
+        setElRefs((refs) => Array(places?.length).fill().map((_, i) => refs[i] || createRef()));
     }, [places]);
 
 
