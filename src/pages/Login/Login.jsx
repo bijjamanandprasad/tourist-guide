@@ -27,7 +27,7 @@ function Login(props) {
         navigate("/");
       }
     });
-  }, [navigate]);
+  }, [navigate]); 
 
   const generateError = (error) =>
     toast.error(error, {
@@ -44,7 +44,7 @@ function Login(props) {
         else if (password) generateError(password);
       } else {
         localStorage.setItem("x-token", data.token);
-        navigate("/trail");
+        navigate("/search");
       }
     });
   };
@@ -66,6 +66,20 @@ function Login(props) {
             color: { xs: "black", md: "white" },
           }}
         />
+      </MenuItem>
+
+      <MenuItem
+        onClick={() => navigate('/')}
+        sx={{ position: "absolute",
+         top: "16px", 
+         left: "80px",
+         fontSize:'1.4em',
+         letterSpacing:'1px',
+         fontWeight:'600',
+         color: { xs: "black", md: "white" }, }}
+        
+      >
+        Tourist Guide
       </MenuItem>
 
       <div className="contain">

@@ -13,13 +13,17 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 
+// import Icon from '@material/icons';
+import LoginIcon from '@mui/icons-material/Login';
+
 import SearchIcon from "@mui/icons-material/Search";
 import { Link, useNavigate } from "react-router-dom";
 
-const pages = ["Explore", "Login"];
-const settings = [{ name: "Profile", link: "/login", icon: "AdbIcon" }];
+const pages = ["Search", "Login"];
 
-const ResponsiveAppBar = () => {
+const settings = [{ name: "Login", link: "/login", icon: <LoginIcon/>, }];
+
+const ResponsiveAppBar = ({isLogged}) => {
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -113,9 +117,8 @@ const ResponsiveAppBar = () => {
           </Box>
 
           {/* LOGO SECTION ON SMALL SCREENS */}
-          {/* <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
-            variant="h5"
+            variant="h6"
             noWrap
             component="a"
             href=""
@@ -125,13 +128,12 @@ const ResponsiveAppBar = () => {
               flexGrow: 1,
               fontFamily: "monospace",
               fontWeight: 700,
-              letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
             }}
           >
             Tourist Guide
-          </Typography> */}
+          </Typography>
 
           {/* LINKS ON LARGE SCREENS */}
           <Box
@@ -141,7 +143,7 @@ const ResponsiveAppBar = () => {
               justifyContent: "flex-end",
             }}
           >
-            <Button
+            { !isLogged && <Button
               onClick={handleCloseNavMenu}
               sx={{
                 my: 2,
@@ -153,7 +155,9 @@ const ResponsiveAppBar = () => {
               href="/register"
             >
               Register
-            </Button>
+            </Button>}
+          
+          { !isLogged &&
             <Button
               onClick={handleCloseNavMenu}
               sx={{
@@ -166,12 +170,27 @@ const ResponsiveAppBar = () => {
               href="/login"
             > 
               Login
-            </Button>
+            </Button>}
+
+            { isLogged &&
+            <Button
+              onClick={logout}
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                marginRight: "20px",
+                fontWeight: 700,
+              }}
+            > 
+              Logout
+            </Button>}
+
           </Box>
 
           {/* USER AVATAR */}
           <Box sx={{ flexGrow: 0, display: "flex" }}>
-            <MenuItem onClick={()=> navigate('/home')} sx={{ marginRight: "10px" }}>
+            <MenuItem onClick={()=> navigate('/search')} sx={{ marginRight: "10px" }}>
               <SearchIcon />
             </MenuItem>
 
@@ -180,6 +199,7 @@ const ResponsiveAppBar = () => {
                 <Avatar alt="P" src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
+
             <Menu
               sx={{ mt: "45px" }}
               id="menu-appbar"
@@ -196,22 +216,31 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {!isLogged && settings.map((setting) => (
                 <MenuItem key={setting.name} onClick={handleCloseUserMenu}>
-                  <AdbIcon
+                  <div
                     sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-                  />
+                  >
+                  {setting.icon}
+                  </div>
                   <Typography textAlign="center">
                     <Link sx={{ textDecoration: "none" }} to={setting.link}>
                       {setting.name}
                     </Link>
                   </Typography>
                 </MenuItem>
+
+
               ))}
-              <MenuItem onClick={logout}>
+
+              { isLogged && <MenuItem onClick={logout}>
                 <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
                 <Typography textAlign="center">logout</Typography>
-              </MenuItem>
+              </MenuItem>}
+
+              
+
+
             </Menu>
           </Box>
         </Toolbar>

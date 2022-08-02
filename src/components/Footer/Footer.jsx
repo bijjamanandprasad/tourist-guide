@@ -38,7 +38,7 @@ return (
 					}}>
 			Tourist Guide
 		</h1>
-	<Container>
+	{/* <Container>
 		<Row>
 		<Column>
 			<Heading>About Us</Heading>
@@ -62,7 +62,7 @@ return (
 		</Column>
 
 		</Row>
-	</Container>
+	</Container> */}
 
 	<Container>
 		<Row>

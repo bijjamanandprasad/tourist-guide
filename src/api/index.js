@@ -2,6 +2,9 @@ import axios from 'axios';
 
 export const getPlacesData = async (sw,ne,type) => {
     try{
+      console.log(sw + "kklll");
+      console.log(ne + "kkklll");
+      console.log(type + "kkklll");
         const {data:{data}} = await axios.get(`https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`,
           {params: {
             bl_latitude: sw.lat,
